@@ -3,6 +3,12 @@ const { sql } = require('@vercel/postgres');
 const express = require('express')
 const app = express();
 
+
+const express = require('express');
+const app = express();
+
+app.use(express.json()); // Enables JSON body parsing
+
 // const fs = require('fs')
 // const swaggerUi = require('swagger-ui-express');
 // const YAML = require('yaml')
@@ -77,6 +83,7 @@ app.get('/Cars/:id', async (req, res) => {
 
 // http://localhost:4000/cars - { "name": "New Task" }
 app.post('/cars', async (req, res) => {
+    console.log(req.body); // Log the received data
     const { id, Plate, Body, Color, FirstName, LastName } = req.body;
 
     if (!id || !Plate || !Body || !Color || !FirstName || !LastName) {
@@ -92,6 +99,7 @@ app.post('/cars', async (req, res) => {
         res.status(500).json({ error: "Server error occurred" });
     }
 });
+
 
 
 //http://localhost:4000/cars/1 - { "name": "Task 1 Updated", "isDone": true } | { "name": "Task 1 Updated" } | { "isDone":  true }
