@@ -76,10 +76,21 @@ app.get('/Cars/:id', async (req, res) => {
 
 
 // http://localhost:4000/cars - { "name": "New Task" }
-app.post('/Cars', async (req, res) => {
-    await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) 
-                  VALUES (${req.body.id}, ${req.body.Plate}, ${req.body.Body}, ${req.body.Color}, ${req.body.FirstName}, ${req.body.LastName});`;
-    res.status(201).json();
+app.post('/cars', async (req, res) => {
+    const { id, Plate, Body, Color, FirstName, LastName } = req.body;
+
+    if (!id || !Plate || !Body || !Color || !FirstName || !LastName) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    try {
+        await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) VALUES 
+        (${id}, ${Plate}, ${Body}, ${Color}, ${FirstName}, ${LastName});`;
+        res.status(201).json({ message: "Car added successfully" });
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Server error occurred" });
+    }
 });
 
 
