@@ -56,6 +56,8 @@ app.get('/cars', (req, res) => {
             return;
         }
     }
+}
+);
 // http://localhost:4000/cars/1
 app.get('/cars/:id', async (req, res) => {
     const id = req.params.id;
