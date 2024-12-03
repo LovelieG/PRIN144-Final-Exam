@@ -3,9 +3,6 @@ const { sql } = require('@vercel/postgres');
 const express = require('express')
 const app = express();
 
-
-app.use(express.json()); // Enables JSON body parsing
-
 // const fs = require('fs')
 // const swaggerUi = require('swagger-ui-express');
 // const YAML = require('yaml')
@@ -19,6 +16,8 @@ app.use(express.json()); // Enables JSON body parsing
 // 		'.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
 // 	customCssUrl: CSS_URL,
 // }));
+
+app.use(express.json())
 
 const PORT = 4000;
 
@@ -78,23 +77,10 @@ app.get('/Cars/:id', async (req, res) => {
 
 // http://localhost:4000/cars - { "name": "New Task" }
 app.post('/Cars', async (req, res) => {
-    console.log(req.body); // Log the received data
-    const { id, Plate, Body, Color, FirstName, LastName } = req.body;
-
-    if (!id || !Plate || !Body || !Color || !FirstName || !LastName) {
-        return res.status(400).json({ error: "Missing required fields" });
-    }
-
-    try {
-        await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) VALUES 
-        (${id}, ${Plate}, ${Body}, ${Color}, ${FirstName}, ${LastName});`;
-        res.status(201).json({ message: "Car added successfully" });
-    } catch (err) {
-        console.error("Database error:", err);
-        res.status(500).json({ error: "Server error occurred" });
-    }
+    await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) 
+                  VALUES (${req.body.id}, ${req.body.Plate}, ${req.body.Body}, ${req.body.Color}, ${req.body.FirstName}, ${req.body.LastName});`;
+    res.status(201).json();
 });
-
 
 
 //http://localhost:4000/cars/1 - { "name": "Task 1 Updated", "isDone": true } | { "name": "Task 1 Updated" } | { "isDone":  true }
