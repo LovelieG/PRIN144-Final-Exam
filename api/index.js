@@ -47,7 +47,7 @@ let carsID = cars.length;
 // });
 
 
-app.get('/cars', (req, res) => {
+app.get('/Cars', (req, res) => {
     if (req.query) {
         if (req.query.id) {
             // http://localhost:4000/tasks?id=1
@@ -63,12 +63,12 @@ app.get('/cars', (req, res) => {
     res.json(cars);
 });
 // http://localhost:4000/cars/1
-app.get('/cars/:id', async (req, res) => {
+app.get('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const task = await sql`SELECT * FROM cars WHERE Id =
+    const car = await sql`SELECT * FROM Cars WHERE Id =
     ${id};`;
-    if (task.rowCount > 0) {
-        res.json(task.rows[0]);
+    if (car.rowCount > 0) {
+        res.json(car.rows[0]);
     } else {
         res.status(404).json();
     }
@@ -76,22 +76,22 @@ app.get('/cars/:id', async (req, res) => {
 
 
 // http://localhost:4000/cars - { "name": "New Task" }
-app.post('/cars', async (req, res) => {
-    await sql`INSERT INTO cars (id) VALUES
-    (${req.body.name});`;
+app.post('/Cars', async (req, res) => {
+    await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) 
+                  VALUES (${req.body.id}, ${req.body.Plate}, ${req.body.Body}, ${req.body.Color}, ${req.body.FirstName}, ${req.body.LastName});`;
     res.status(201).json();
 });
 
 
 //http://localhost:4000/cars/1 - { "name": "Task 1 Updated", "isDone": true } | { "name": "Task 1 Updated" } | { "isDone":  true }
-app.put('/cars/:id', async (req, res) => {
+app.put('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const taskUpdate = await sql`UPDATE cars SET Name = ${(req.body.name != undefined ? req.body.name : task.name)
+    const taskUpdate = await sql`UPDATE Cars SET Name = ${(req.body.name != undefined ? req.body.name : task.name)
         }, IsDone = ${(req.body.isDone != undefined ? req.body.isDone :
             task.isDone)
         } WHERE Id = ${id};`;
     if (taskUpdate.rowCount > 0) {
-        const task = await sql`SELECT * FROM cars WHERE Id =
+        const task = await sql`SELECT * FROM Cars WHERE Id =
     ${id};`;
         res.status(200).json(task.rows[0]);
     } else {
@@ -100,9 +100,9 @@ app.put('/cars/:id', async (req, res) => {
 });
 
 // http://localhost:4000/cars/1
-app.delete('/cars/:id', async (req, res) => {
+app.delete('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const task = await sql`DELETE FROM cars WHERE Id = ${id};`;
+    const task = await sql`DELETE FROM Cars WHERE Id = ${id};`;
     if (task.rowCount > 0) {
         res.status(204).json();
     } else {
