@@ -4,9 +4,6 @@ const express = require('express')
 const app = express();
 
 
-const express = require('express');
-const app = express();
-
 app.use(express.json()); // Enables JSON body parsing
 
 // const fs = require('fs')
@@ -22,8 +19,6 @@ app.use(express.json()); // Enables JSON body parsing
 // 		'.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
 // 	customCssUrl: CSS_URL,
 // }));
-
-app.use(express.json())
 
 const PORT = 4000;
 
@@ -82,7 +77,7 @@ app.get('/Cars/:id', async (req, res) => {
 
 
 // http://localhost:4000/cars - { "name": "New Task" }
-app.post('/cars', async (req, res) => {
+app.post('/Cars', async (req, res) => {
     console.log(req.body); // Log the received data
     const { id, Plate, Body, Color, FirstName, LastName } = req.body;
 
