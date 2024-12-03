@@ -97,7 +97,7 @@ app.put('/Cars/:id', async (req, res) => {
     Body = ${(req.body.Body != undefined ? req.body.Body : car.Body)},
     Color = ${(req.body.Color != undefined ? req.body.Color : car.Color)},
     FirstName = ${(req.body.FirstName != undefined ? req.body.FirstName : car.FirstName)},
-    LastName = ${(req.body.LastName != undefined ? req.body.LastName : car.LastName)},
+    LastName = ${(req.body.LastName != undefined ? req.body.LastName : car.LastName)}
     WHERE id = ${id};`;
     if (carUpdate.rowCount > 0) {
         const car = await sql`SELECT * FROM Cars WHERE id =
