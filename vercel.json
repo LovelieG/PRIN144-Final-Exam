@@ -3,7 +3,7 @@
     "rewrites": [
         {
             "source": "/(.*)",
-            "destination": "/PRIN144-Final-Exam"
+            "destination": "/api"
         }
     ]
 }
