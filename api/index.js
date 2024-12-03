@@ -36,10 +36,10 @@ app.get('/cars', async (req, res) => {
     if (req.query) {
         if (req.query.id) {
             // http://localhost:4000/cars?id=1
-            const task = await sql`SELECT * FROM cars WHERE id =
+            const car = await sql`SELECT * FROM cars WHERE id =
     ${req.query.id};`;
-            if (task.rowCount > 0) {
-                res.json(task.rows[0]);
+            if (car.rowCount > 0) {
+                res.json(car.rows[0]);
             } else {
                 res.status(404).json();
             }
@@ -111,8 +111,8 @@ app.put('/Cars/:id', async (req, res) => {
 // http://localhost:4000/cars/1
 app.delete('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const task = await sql`DELETE FROM Cars WHERE id = ${id};`;
-    if (task.rowCount > 0) {
+    const car = await sql`DELETE FROM Cars WHERE id = ${id};`;
+    if (car.rowCount > 0) {
         res.status(204).json();
     } else {
         res.status(404).json();
