@@ -94,11 +94,11 @@ app.put('/Cars/:id', async (req, res) => {
     const id = req.params.id;
     const carUpdate = await sql`UPDATE Cars SET 
     Plate = ${(req.body.Plate != undefined ? req.body.Plate : car.Plate)}, 
-    Body = ${(req.body.Body != undefined ? req.body.Body : task.Body)},
-    Color = ${(req.body.Color != undefined ? req.body.Color : task.Color)},
-    FirstName = ${(req.body.FirstName != undefined ? req.body.FirstName : task.FirstName)},
-    LastName = ${(req.body.LastName != undefined ? req.body.LastName : task.LastName)},
-    WHERE Id = ${id};`;
+    Body = ${(req.body.Body != undefined ? req.body.Body : car.Body)},
+    Color = ${(req.body.Color != undefined ? req.body.Color : car.Color)},
+    FirstName = ${(req.body.FirstName != undefined ? req.body.FirstName : car.FirstName)},
+    LastName = ${(req.body.LastName != undefined ? req.body.LastName : car.LastName)},
+    WHERE id = ${id};`;
     if (carUpdate.rowCount > 0) {
         const car = await sql`SELECT * FROM Cars WHERE id =
     ${id};`;
