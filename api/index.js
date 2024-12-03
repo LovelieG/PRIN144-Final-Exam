@@ -77,8 +77,8 @@ app.get('/Cars/:id', async (req, res) => {
 
 // http://localhost:4000/cars - { "name": "New Task" }
 app.post('/Cars', async (req, res) => {
-    await sql`INSERT INTO Cars (Plate, Body, Color, FirstName, LastName) 
-                  VALUES ${req.body.Plate}, ${req.body.Body}, ${req.body.Color}, ${req.body.FirstName}, ${req.body.LastName});`;
+    await sql`INSERT INTO Cars (id, Plate, Body, Color, FirstName, LastName) 
+                  VALUES (${req.body.id}, ${req.body.Plate}, ${req.body.Body}, ${req.body.Color}, ${req.body.FirstName}, ${req.body.LastName});`;
     res.status(201).json();
 });
 
