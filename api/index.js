@@ -28,40 +28,42 @@ app.listen(process.env.PORT || PORT, () => {
 const cars = [{ id: 1, plateNumber: 'ABC 123', bodyType: 'Sedan', Color: 'White', firstName: 'Lovelie', lastName: 'Claravall', }];
 let carsID = cars.length;
 
-// app.get('/cars', async (req, res) => {
-//     if (req.query) {
-//         if (req.query.id) {
-//             // http://localhost:4000/cars?id=1
-//             const task = await sql`SELECT * FROM cars WHERE Id =
-//     ${req.query.id};`;
-//             if (task.rowCount > 0) {
-//                 res.json(task.rows[0]);
-//             } else {
-//                 res.status(404).json();
-//             }
-//             return;
-//         }
-//     }
-//     const cars = await sql`SELECT * FROM cars ORDER BY Id;`;
-//     res.json(cars.rows);
-// });
-
-
-app.get('/Cars', (req, res) => {
+app.get('/cars', async (req, res) => {
     if (req.query) {
         if (req.query.id) {
-            // http://localhost:4000/tasks?id=1
-            const car = cars.find((car) => car.id === parseInt(req.query.id));
-            if (car) {
-                res.json(car);
+            // http://localhost:4000/cars?id=1
+            const task = await sql`SELECT * FROM cars WHERE Id =
+    ${req.query.id};`;
+            if (task.rowCount > 0) {
+                res.json(task.rows[0]);
             } else {
                 res.status(404).json();
             }
             return;
         }
     }
-    res.json(cars);
+    const cars = await sql`SELECT * FROM cars ORDER BY Id;`;
+    res.json(cars.rows);
 });
+
+
+// app.get('/Cars', (req, res) => {
+//     if (req.query) {
+//         if (req.query.id) {
+//             // http://localhost:4000/tasks?id=1
+//             const car = cars.find((car) => car.id === parseInt(req.query.id));
+//             if (car) {
+//                 res.json(car);
+//             } else {
+//                 res.status(404).json();
+//             }
+//             return;
+//         }
+//     }
+//     res.json(cars);
+// });
+
+
 // http://localhost:4000/cars/1
 app.get('/Cars/:id', async (req, res) => {
     const id = req.params.id;
