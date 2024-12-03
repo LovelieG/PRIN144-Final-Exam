@@ -92,14 +92,17 @@ app.post('/Cars', async (req, res) => {
 //http://localhost:4000/cars/1 - { "name": "Task 1 Updated", "isDone": true } | { "name": "Task 1 Updated" } | { "isDone":  true }
 app.put('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const taskUpdate = await sql`UPDATE Cars SET Name = ${(req.body.name != undefined ? req.body.name : task.name)
-        }, IsDone = ${(req.body.isDone != undefined ? req.body.isDone :
-            task.isDone)
-        } WHERE Id = ${id};`;
-    if (taskUpdate.rowCount > 0) {
-        const task = await sql`SELECT * FROM Cars WHERE Id =
+    const carUpdate = await sql`UPDATE Cars SET 
+    Plate = ${(req.body.Plate != undefined ? req.body.Plate : car.Plate)}, 
+    Body = ${(req.body.Body != undefined ? req.body.Body : task.Body)},
+    Color = ${(req.body.Color != undefined ? req.body.Color : task.Color)},
+    FirstName = ${(req.body.FirstName != undefined ? req.body.FirstName : task.FirstName)},
+    LastName = ${(req.body.LastName != undefined ? req.body.LastName : task.LastName)},
+    WHERE Id = ${id};`;
+    if (carUpdate.rowCount > 0) {
+        const car = await sql`SELECT * FROM Cars WHERE Id =
     ${id};`;
-        res.status(200).json(task.rows[0]);
+        res.status(200).json(car.rows[0]);
     } else {
         res.status(404).json();
     }
