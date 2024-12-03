@@ -36,7 +36,7 @@ app.get('/cars', async (req, res) => {
     if (req.query) {
         if (req.query.id) {
             // http://localhost:4000/cars?id=1
-            const task = await sql`SELECT * FROM cars WHERE Id =
+            const task = await sql`SELECT * FROM cars WHERE id =
     ${req.query.id};`;
             if (task.rowCount > 0) {
                 res.json(task.rows[0]);
@@ -46,7 +46,7 @@ app.get('/cars', async (req, res) => {
             return;
         }
     }
-    const cars = await sql`SELECT * FROM cars ORDER BY Id;`;
+    const cars = await sql`SELECT * FROM cars ORDER BY id;`;
     res.json(cars.rows);
 });
 
@@ -71,7 +71,7 @@ app.get('/cars', async (req, res) => {
 // http://localhost:4000/cars/1
 app.get('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const car = await sql`SELECT * FROM Cars WHERE Id =
+    const car = await sql`SELECT * FROM Cars WHERE id =
     ${id};`;
     if (car.rowCount > 0) {
         res.json(car.rows[0]);
@@ -100,7 +100,7 @@ app.put('/Cars/:id', async (req, res) => {
     LastName = ${(req.body.LastName != undefined ? req.body.LastName : task.LastName)},
     WHERE Id = ${id};`;
     if (carUpdate.rowCount > 0) {
-        const car = await sql`SELECT * FROM Cars WHERE Id =
+        const car = await sql`SELECT * FROM Cars WHERE id =
     ${id};`;
         res.status(200).json(car.rows[0]);
     } else {
@@ -111,7 +111,7 @@ app.put('/Cars/:id', async (req, res) => {
 // http://localhost:4000/cars/1
 app.delete('/Cars/:id', async (req, res) => {
     const id = req.params.id;
-    const task = await sql`DELETE FROM Cars WHERE Id = ${id};`;
+    const task = await sql`DELETE FROM Cars WHERE id = ${id};`;
     if (task.rowCount > 0) {
         res.status(204).json();
     } else {
