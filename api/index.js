@@ -25,6 +25,10 @@ app.listen(process.env.PORT || PORT, () => {
     console.log(`Server is listening on port ${PORT}`)
 })
 
+app.get('/', (req, res) => {
+    res.send('PRIN144-Final-Exam: Lovelie Gaspar');
+});
+
 const cars = [{ id: 1, plateNumber: 'ABC 123', bodyType: 'Sedan', Color: 'White', firstName: 'Lovelie', lastName: 'Claravall', }];
 let carsID = cars.length;
 
