@@ -21,6 +21,10 @@ app.use(express.json())
 
 const PORT = 4000;
 
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server is listening on port ${PORT}`)
+})
+
 const cars = [{ id: 1, plateNumber: 'ABC 123', bodyType: 'Sedan', Color: 'White', firstName: 'Lovelie', lastName: 'Claravall', }];
 let carsID = cars.length;
 
@@ -47,17 +51,17 @@ app.get('/cars', (req, res) => {
     if (req.query) {
         if (req.query.id) {
             // http://localhost:4000/tasks?id=1
-            const task = cars.find((cars) => task.id === parseInt(req.query.id));
-            if (task) {
-                res.json(task);
+            const car = cars.find((car) => car.id === parseInt(req.query.id));
+            if (car) {
+                res.json(car);
             } else {
                 res.status(404).json();
             }
             return;
         }
     }
-}
-);
+    res.json(cars);
+});
 // http://localhost:4000/cars/1
 app.get('/cars/:id', async (req, res) => {
     const id = req.params.id;
